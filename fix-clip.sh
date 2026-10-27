@@ -1,4 +1,12 @@
 #!/bin/bash
+
+echo "[*] Checking for open-vm-tools..."
+# If the service file doesn't exist, install it automatically
+if ! systemctl list-unit-files | grep -q "open-vm-tools.service"; then
+    echo "[!] Service missing. Installing open-vm-tools-desktop now..."
+    sudo apt update && sudo apt install -y open-vm-tools-desktop
+fi
+
 echo "[*] Killing broken VMware clipboard processes..."
 sudo pkill -f vmware-user
 sudo pkill -f vmusr
